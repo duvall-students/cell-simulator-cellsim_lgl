@@ -5,39 +5,26 @@ https://docs.google.com/document/d/1200DF8m_qUECw59jcpBAmz2DxRTtf_729m-B8eF5xV0/
 
 Team names: Lilly, Griffin, Luke
 
-Project desciption:
+Project desciption: You will simulate a version of the Game of Life, a model created by J.H. Conway.  This model simulates the life cycle of bacteria.  
 
-Where to find design plan:
+MVC:
 
-Cell Board - model
-  Update() update all the cells
-Cells
-  Update() individual
-  Algorithm
+Model - Lilly
+  - Cell Board
+    - update all the cells
+  - Cells
+    - Update() individual
+    - Algorithm
   
-UI - view
-  Buttons and Text fields
-
-Functionallity - controller
-  Recieves pressing buttons
-
-
-INTERFACES:
-
-SUPER CLASSES:
-
-
-SUBCLASSES:
-- 
-OTHER:
-
-ASSIGNMENTS:
-
-Lilly
-
-Luke
-
-Griffin
+Controller - Luke
+  - Functionallity
+    - Recieves pressing buttons
+    - Saving
+    - Pause / play
+  
+View - Griffin
+  - UI
+    - Buttons and Text fields
 
 TESTING:
 
