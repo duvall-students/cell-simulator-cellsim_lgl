@@ -19,7 +19,7 @@ public class Cell {
 
 	//Returns a copy of the cell
 	public Cell copy() {
-		return null;
+		return new Cell(row, column);
 	}
 	
 }
