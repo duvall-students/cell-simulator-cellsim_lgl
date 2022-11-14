@@ -15,6 +15,8 @@ public class CellBoard {
 				cellBoard[i][j] = new Cell(i,j,false);
 			}
 		}
+		
+		randomizeBoard();
 	}
 	
 	//Randomizes the board
@@ -54,6 +56,10 @@ public class CellBoard {
 	
 	public Cell getCell(int row, int column) {
 		return cellBoard[row][column];
+	}
+	
+	public void setBoard(Cell[][] board) {
+		cellBoard = board;
 	}
 	
 }
