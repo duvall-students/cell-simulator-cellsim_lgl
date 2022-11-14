@@ -5,11 +5,14 @@ public class CellBoard {
 
 	private Cell[][] cellBoard;
 	
-	public CellBoard(int row, int column) {
-		cellBoard = new Cell[row][column];
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < column; j++) {
-				cellBoard[i][j] = new Cell(i,j);
+	public CellBoard(int rows, int columns) {
+		cellBoard = new Cell[rows][columns];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (i == 0 || j == 0 || i == rows - 1 || j == columns - 1) {
+					cellBoard[i][j] = new Cell(i,j,true);
+				}
+				cellBoard[i][j] = new Cell(i,j,false);
 			}
 		}
 	}
@@ -47,6 +50,10 @@ public class CellBoard {
 		}
 		return copyOfBoard;
 		
+	}
+	
+	public Cell getCell(int row, int column) {
+		return cellBoard[row][column];
 	}
 	
 }
