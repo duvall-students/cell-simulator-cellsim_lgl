@@ -4,10 +4,12 @@ public class Cell {
 
 	private int row;
 	private int column;
+	private boolean isEdge;
 	
-	public Cell(int row, int column) {
+	public Cell(int row, int column, boolean isEdge) {
 		this.row = row;
 		this.column = column;
+		this.isEdge = isEdge;
 	}
 
 
@@ -19,7 +21,11 @@ public class Cell {
 
 	//Returns a copy of the cell
 	public Cell copy() {
-		return null;
+		return new Cell(row, column, isEdge);
+	}
+	
+	public boolean isEdge() {
+		return isEdge;
 	}
 	
 }
