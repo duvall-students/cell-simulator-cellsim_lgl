@@ -52,4 +52,8 @@ public class CellBoard {
 		
 	}
 	
+	public Cell getCell(int row, int column) {
+		return cellBoard[row][column];
+	}
+	
 }
