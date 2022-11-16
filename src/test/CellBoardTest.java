@@ -4,6 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import model.CellBoard;
 
+/**
+ * Tests the cellBoard class 
+ * @author Lilly Purrington
+ *
+ */
+
 public class CellBoardTest {
 
 	//This test checks that the getBoard function returns the same cell objects
