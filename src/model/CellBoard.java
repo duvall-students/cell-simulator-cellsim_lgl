@@ -1,6 +1,12 @@
 package model;
 
 
+/**
+ * Class that handles the cellBoard
+ * @author Lilly Purrington
+ *
+ */
+
 public class CellBoard {
 
 	private Cell[][] cellBoard;
@@ -58,6 +64,8 @@ public class CellBoard {
 		return cellBoard[row][column];
 	}
 	
+	
+	//Used to load a board
 	public void setBoard(Cell[][] board) {
 		cellBoard = board;
 	}
