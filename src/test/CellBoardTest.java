@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import model.CellBoard;
 
 /**
- * Tests the cellBoard class
+ * Tests the cellBoard class 
  * @author Lilly Purrington
  *
  */

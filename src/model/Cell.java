@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Class that handles individual cells
+ * Class that handles individual cells 
  * @author Lilly Purrington
  *
  */

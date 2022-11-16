@@ -2,7 +2,7 @@ package model;
 
 
 /**
- * Class that handles the cellBoard
+ * Class that handles the cellBoard 
  * @author Lilly Purrington
  *
  */
