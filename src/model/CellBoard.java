@@ -12,13 +12,16 @@ public class CellBoard {
 	private Cell[][] cellBoard;
 	
 	public CellBoard(int rows, int columns) {
+		assert(rows > 2 && columns > 2);
 		cellBoard = new Cell[rows][columns];
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				if (i == 0 || j == 0 || i == rows - 1 || j == columns - 1) {
 					cellBoard[i][j] = new Cell(i,j,true);
+				}else {
+					cellBoard[i][j] = new Cell(i,j,false);
 				}
-				cellBoard[i][j] = new Cell(i,j,false);
+				
 			}
 		}
 		
@@ -69,5 +72,25 @@ public class CellBoard {
 	public void setBoard(Cell[][] board) {
 		cellBoard = board;
 	}
+	
+	public String toString() {
+		String string = "";
+		
+		string += "x = bacteria\n";
+		
+		for (Cell[] row : cellBoard) {
+			for (Cell cell : row) {
+				if (cell.hasBacteria()) {
+					string += "x";
+				}else {
+					string+= "-";
+				}
+			}
+			string+= "\n";
+		}
+		
+		return string;
+	}
+
 	
 }
