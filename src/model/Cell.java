@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Class that handles individual cells 
+ * @author Lilly Purrington
+ *
+ */
+
 public class Cell {
 
 	private int row;
@@ -24,6 +30,7 @@ public class Cell {
 		return new Cell(row, column, isEdge);
 	}
 	
+	//If the cell is an edge or not
 	public boolean isEdge() {
 		return isEdge;
 	}

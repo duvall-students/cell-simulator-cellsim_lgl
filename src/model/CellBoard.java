@@ -1,6 +1,12 @@
 package model;
 
 
+/**
+ * Class that handles the cellBoard 
+ * @author Lilly Purrington
+ *
+ */
+
 public class CellBoard {
 
 	private Cell[][] cellBoard;
@@ -15,6 +21,8 @@ public class CellBoard {
 				cellBoard[i][j] = new Cell(i,j,false);
 			}
 		}
+		
+		randomizeBoard();
 	}
 	
 	//Randomizes the board
@@ -54,6 +62,12 @@ public class CellBoard {
 	
 	public Cell getCell(int row, int column) {
 		return cellBoard[row][column];
+	}
+	
+	
+	//Used to load a board
+	public void setBoard(Cell[][] board) {
+		cellBoard = board;
 	}
 	
 }
