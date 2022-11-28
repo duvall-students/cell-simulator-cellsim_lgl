@@ -8,10 +8,6 @@ public class CellController {
 	
 	// Model
 	private CellBoard board;
-	private Cell cell;
-	
-	private int rows;
-	private int cols;
 	
 	// View
 	private UI display;
@@ -27,11 +23,13 @@ public class CellController {
 	
 	public void newBoard() {
 		board.randomizeBoard();
-//		display.redraw();
+		//display.redraw();
 	}
 	
 	public void startSimulation() {
-		board.update();
+		while(runStatus) {
+			step();
+		}
 	}
 	
 	public void playSimulation() {
@@ -43,11 +41,13 @@ public class CellController {
 	}
 	
 	public void step() {
-		
+		board.update();
+		//display.redraw();
 	}
 	
 	public void doOneStep() {
-		
+		step();
+		//display.redraw();
 	}
 	
 	public void saveSimulation() {
