@@ -24,8 +24,7 @@ public class Cell {
 		this.row = row;
 		this.column = column;
 		this.isEdge = isEdge;
-		Random rand = new Random();
-		hasBacteria = rand.nextInt(100) < BACTERIA_CHANCE && !isEdge;
+		hasBacteria = new Random().nextInt(100) < BACTERIA_CHANCE && !isEdge;
 	}
 
 
@@ -39,7 +38,6 @@ public class Cell {
 				}
 			}
 			
-			//need to make better
 			if (bacteriaNeighbors < 2 || bacteriaNeighbors > 3) {
 				hasBacteria = false;
 			}else if (bacteriaNeighbors == 3) {

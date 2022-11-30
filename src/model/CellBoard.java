@@ -14,9 +14,14 @@ public class CellBoard {
 	public CellBoard(int rows, int columns) {
 		assert(rows > 2 && columns > 2);
 		cellBoard = new Cell[rows][columns];
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				if (i == 0 || j == 0 || i == rows - 1 || j == columns - 1) {
+		randomizeBoard();
+	}
+	
+	//Randomizes the board
+	public void randomizeBoard() {
+		for (int i = 0; i < cellBoard.length; i++) {
+			for (int j = 0; j < cellBoard[0].length; j++) {
+				if (i == 0 || j == 0 || i == cellBoard.length - 1 || j == cellBoard[0].length - 1) {
 					cellBoard[i][j] = new Cell(i,j,true);
 				}else {
 					cellBoard[i][j] = new Cell(i,j,false);
@@ -24,13 +29,6 @@ public class CellBoard {
 				
 			}
 		}
-		
-		randomizeBoard();
-	}
-	
-	//Randomizes the board
-	public void randomizeBoard() {
-		
 	}
 	
 	//Returns the board with the same cells
