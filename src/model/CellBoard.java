@@ -1,25 +1,34 @@
 package model;
 
 
+/**
+ * Class that handles the cellBoard 
+ * @author Lilly Purrington
+ *
+ */
+
 public class CellBoard {
 
 	private Cell[][] cellBoard;
 	
 	public CellBoard(int rows, int columns) {
+		assert(rows > 2 && columns > 2);
 		cellBoard = new Cell[rows][columns];
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				if (i == 0 || j == 0 || i == rows - 1 || j == columns - 1) {
-					cellBoard[i][j] = new Cell(i,j,true);
-				}
-				cellBoard[i][j] = new Cell(i,j,false);
-			}
-		}
+		randomizeBoard();
 	}
 	
 	//Randomizes the board
 	public void randomizeBoard() {
-		
+		for (int i = 0; i < cellBoard.length; i++) {
+			for (int j = 0; j < cellBoard[0].length; j++) {
+				if (i == 0 || j == 0 || i == cellBoard.length - 1 || j == cellBoard[0].length - 1) {
+					cellBoard[i][j] = new Cell(i,j,true);
+				}else {
+					cellBoard[i][j] = new Cell(i,j,false);
+				}
+				
+			}
+		}
 	}
 	
 	//Returns the board with the same cells
@@ -55,5 +64,31 @@ public class CellBoard {
 	public Cell getCell(int row, int column) {
 		return cellBoard[row][column];
 	}
+	
+	
+	//Used to load a board
+	public void setBoard(Cell[][] board) {
+		cellBoard = board;
+	}
+	
+	public String toString() {
+		String string = "";
+		
+		string += "x = bacteria\n";
+		
+		for (Cell[] row : cellBoard) {
+			for (Cell cell : row) {
+				if (cell.hasBacteria()) {
+					string += "x";
+				}else {
+					string+= "-";
+				}
+			}
+			string+= "\n";
+		}
+		
+		return string;
+	}
+
 	
 }
