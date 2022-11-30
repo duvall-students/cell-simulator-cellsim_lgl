@@ -17,14 +17,17 @@ public class Cell {
 	//The position of all the neighbors relative to the cell
 	private int[][] neighbors = {{-1,-1},{0,-1},{+1,-1},{+1,0},{+1,+1},{0,+1},{-1,+1},{-1,0}};
 	
-	public static final int BACTERIA_CHANCE = 40;
+	public static final int BACTERIA_CHANCE = 40/100;
+	private static final int LONELY_BACTERIA = 1;
+	private static final int OVERCROWDED_BACTERIA = 4;
+	private static final int JUST_RIGHT_BACTERIA = 3;
 	
 	
 	public Cell(int row, int column, boolean isEdge) {
 		this.row = row;
 		this.column = column;
 		this.isEdge = isEdge;
-		hasBacteria = new Random().nextInt(100) < BACTERIA_CHANCE && !isEdge;
+		hasBacteria = new Random().nextInt() < BACTERIA_CHANCE && !isEdge;
 	}
 
 
@@ -38,9 +41,9 @@ public class Cell {
 				}
 			}
 			
-			if (bacteriaNeighbors < 2 || bacteriaNeighbors > 3) {
+			if (bacteriaNeighbors <= LONELY_BACTERIA || bacteriaNeighbors >= OVERCROWDED_BACTERIA) {
 				hasBacteria = false;
-			}else if (bacteriaNeighbors == 3) {
+			}else if (bacteriaNeighbors == JUST_RIGHT_BACTERIA) {
 				hasBacteria = true;
 			}
 		}
