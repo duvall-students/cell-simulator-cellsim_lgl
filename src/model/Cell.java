@@ -74,4 +74,17 @@ public class Cell {
 		return "row: " + row + " column: " + column + " edge: " + isEdge + " bacteria: " + hasBacteria;
 	}
 	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getColumn() {
+		return column;
+	}
+	
+	
+	public boolean equals(Cell otherCell) {
+		return (row == otherCell.getRow() && column == otherCell.getColumn() && isEdge == otherCell.isEdge() && hasBacteria == otherCell.hasBacteria());
+	}
+	
 }
