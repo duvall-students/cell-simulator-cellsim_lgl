@@ -58,7 +58,7 @@ public class Cell {
 	}
 	
 	public void setBacteria(boolean hasBacteria) {
-		this.hasBacteria = hasBacteria;
+			this.hasBacteria = hasBacteria && !isEdge;
 	}
 	
 	//If the cell is an edge or not
