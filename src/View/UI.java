@@ -56,7 +56,6 @@ public class UI extends Application {
 		return controls;
 	}
 	
-	
 	public void pressPause(){
 		this.paused = !this.paused;
 		if(this.paused){
