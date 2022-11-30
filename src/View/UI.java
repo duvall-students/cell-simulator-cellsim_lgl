@@ -18,13 +18,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class UI {
+public class UI extends Application {
 
 	// Buttons and Text Fields
+	
+	private final int MILLISECOND_DELAY = 15;	// speed of animation
 	
 	private Scene myScene;						// the container for the GUI
 	private boolean paused = false;		
 	private Button pauseButton;
+	
+	CellController controller;
 	
 	private HBox setupControlButtons(){
 		// Make the controls part
@@ -32,11 +36,11 @@ public class UI {
 		controls.setAlignment(Pos.BASELINE_CENTER);
 		controls.setSpacing(10);
 
-		Button newMazeButton = new Button("New Maze");
-		newMazeButton.setOnAction(value ->  {
-			controller.newMaze();
+		Button newSetUpButton = new Button("New Set-Up");
+		newSetUpButton.setOnAction(value ->  {
+			controller.newBoard();
 		});
-		controls.getChildren().add(newMazeButton);
+		controls.getChildren().add(newSetUpButton);
 
 		pauseButton = new Button("Pause");
 		pauseButton.setOnAction(value ->  {
@@ -51,5 +55,17 @@ public class UI {
 		controls.getChildren().add(stepButton);
 		return controls;
 	}
+	
+	
+	public void pressPause(){
+		this.paused = !this.paused;
+		if(this.paused){
+			pauseButton.setText("Resume");
+		}
+		else{
+			pauseButton.setText("Pause");
+		}
+	}
+	
 	
 }
