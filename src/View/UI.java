@@ -3,7 +3,10 @@ package View;
 import javafx.util.Duration;
 
 import java.awt.Point;
+import java.util.Scanner;
 
+import application.MazeController;
+import controller.CellController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -27,8 +30,11 @@ public class UI extends Application {
 	private Scene myScene;						// the container for the GUI
 	private boolean paused = false;		
 	private Button pauseButton;
+	private int NUM_ROWS;
+	private int NUM_COLUMNS;
 	
 	CellController controller;
+	Scanner userInputScanner = new Scanner(System.in);
 	
 	private HBox setupControlButtons(){
 		// Make the controls part
@@ -50,7 +56,7 @@ public class UI extends Application {
 
 		Button stepButton = new Button("Step");
 		stepButton.setOnAction(value ->  {
-			controller.doOneStep(MILLISECOND_DELAY);
+			controller.doOneStep();
 		});
 		controls.getChildren().add(stepButton);
 		return controls;
@@ -64,6 +70,38 @@ public class UI extends Application {
 		else{
 			pauseButton.setText("Pause");
 		}
+	}
+	
+	public void userBoardInput(Scanner userInput) {
+		System.out.println("Choose the number of rows: ");
+		NUM_ROWS = Integer.parseInt(userInput.nextLine());
+		System.out.println("Choose the number of rows: ");
+		NUM_COLUMNS = Integer.parseInt(userInput.nextLine());
+	}
+
+	public int getNUM_ROWS() {
+		return NUM_ROWS;
+	}
+
+	public int getNUM_COLUMNS() {
+		return NUM_COLUMNS;
+	}
+
+	// Start of JavaFX Application
+	public void start(Stage stage) {
+		controller = new CellController(NUM_ROWS, NUM_COLUMNS, this);
+		// Initializing the gui
+		myScene = setupScene();
+		stage.setScene(myScene);
+		stage.setTitle("Cell Sim");
+		stage.show();
+
+		// Makes the animation happen.  Will call "step" method repeatedly.
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> controller.step(MILLISECOND_DELAY));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
 	}
 	
 	
