@@ -56,7 +56,9 @@ public class CellBoardTest {
 
 		
 		for (int i = 0; i < 100; i++) {
+
 			cellBoard.update();
+			
 			if (i % 2 == 0) {
 				assert(cellBoard.getBoard()[2][1].hasBacteria());
 				assert(cellBoard.getBoard()[2][2].hasBacteria());
