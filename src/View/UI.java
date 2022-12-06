@@ -31,9 +31,9 @@ public class UI extends Application {
 	private Button pauseButton;
 	private int NUM_ROWS;
 	private int NUM_COLUMNS;
-	private final int EXTRA_VERTICAL = 100; 	// GUI area allowance when making the scene width
+	private final int EXTRA_VERTICAL = 100; 	// GUI area allowance when making the scene height
 	private final int EXTRA_HORIZONTAL = 150; 	// GUI area allowance when making the scene width
-	private final int BLOCK_SIZE = 12;     		// size of each cell in pixels
+	private final int BLOCK_SIZE = 5;     		// size of each cell in pixels
 	
 	CellController controller;
 	Scanner userInputScanner = new Scanner(System.in);
@@ -42,8 +42,8 @@ public class UI extends Application {
 	
 	private Color[] color  = new Color[] {
 			Color.BLACK,			// filled cell color
-			Color.WHITE,			// empty cell color
-	}; 
+			Color.WHITE				// empty cell color
+	};
 	
 	private HBox setupControlButtons(){
 		// Make the controls part
@@ -81,6 +81,7 @@ public class UI extends Application {
 		}
 	}
 	
+	// Gets the desired size of board
 	public void userBoardInput(Scanner userInput) {
 		System.out.println("Choose the number of rows: ");
 		NUM_ROWS = Integer.parseInt(userInput.nextLine());
@@ -93,7 +94,7 @@ public class UI extends Application {
 		userBoardInput(userInputScanner);
 		controller = new CellController(NUM_ROWS, NUM_COLUMNS, this);
 		
-		// Initializing the gui
+		// Initializing the GUI
 		myScene = setupScene();
 		stage.setScene(myScene);
 		stage.setTitle("Cell Sim");
@@ -107,9 +108,9 @@ public class UI extends Application {
 		animation.play();
 	}
 	
-	// Create the scene - Controls and Cell areas
+	// Create the scene - Controls and Life areas
 	private Scene setupScene () {
-		// Make three container
+		// Make three containers
 		Group cellDrawing = setupGame();
 		HBox controls = setupControlButtons();
 
@@ -139,6 +140,7 @@ public class UI extends Application {
 		return drawing;
 	}
 	
+	// Updates board visuals
 	public void redraw(){
 		for(int i = 0; i< mirrorCell.length; i++){
 			for(int j =0; j < mirrorCell[i].length; j++){
@@ -147,16 +149,10 @@ public class UI extends Application {
 		}
 	}
 	
-	/*
-	 * Does a step in the search only if not paused.
-	 */
+	// Does a step in the search only if not paused.
 	public void step(double elapsedTime){
 		if(!paused) {
 			controller.doOneStep(elapsedTime);
 		}
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
 	}
 }
