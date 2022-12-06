@@ -6,11 +6,12 @@ import View.UI;
 import model.Cell;
 import model.CellBoard;
 
-public class CellController {
+/* 
+ * @Author Luke Freudenthal
+ * Logic of the program
+ */
 
-	/* 
-	 * Logic of the program
-	 */
+public class CellController {
 
 	// Model
 	private CellBoard board;
@@ -37,10 +38,12 @@ public class CellController {
 		this.display = display;
 	}
 	
+	// Saves the current board and stores it in Cell[][]
 	public void saveBoard() {
 		savedBoard = board.copyBoard();
 	}
 	
+	// If a savedBoard exists, it will load it into the board
 	public void loadBoard() {
 		if(savedBoard != null) {
 			board.setBoard(savedBoard);
@@ -55,13 +58,12 @@ public class CellController {
 		display.redraw();
 	}
 	
+	// Step methods for calling the board update
 	public void step() {
 		board.update();
 	}
 	
-	/*
-	 * Does a step in the search regardless of pause status
-	 */
+	// Does a step for the view 
 	public void doOneStep(double elapsedTime){
 		if(board != null) step();
 		display.redraw();
@@ -76,5 +78,9 @@ public class CellController {
 		}
 	}
 	
+	// Getter for testing saveBoard
+	public Cell[][] getSavedBoard() {
+		return savedBoard;
+	}
 
 }
