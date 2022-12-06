@@ -41,10 +41,8 @@ public class UI extends Application {
 	private Rectangle[][] mirrorCell;
 	
 	private Color[] color  = new Color[] {
-			Color.rgb(200,0,0),		// wall color
-			Color.rgb(128,128,255),	// path color
+			Color.BLACK,			// filled cell color
 			Color.WHITE,			// empty cell color
-			Color.rgb(200,200,200)	// visited cell color
 	}; 
 	
 	private HBox setupControlButtons(){
@@ -67,7 +65,7 @@ public class UI extends Application {
 
 		Button stepButton = new Button("Step");
 		stepButton.setOnAction(value ->  {
-			controller.doOneStep();
+			controller.doOneStep(MILLISECOND_DELAY);
 		});
 		controls.getChildren().add(stepButton);
 		return controls;
@@ -92,15 +90,17 @@ public class UI extends Application {
 
 	// Start of JavaFX Application
 	public void start(Stage stage) {
+		userBoardInput(userInputScanner);
 		controller = new CellController(NUM_ROWS, NUM_COLUMNS, this);
+		
 		// Initializing the gui
 		myScene = setupScene();
 		stage.setScene(myScene);
 		stage.setTitle("Cell Sim");
 		stage.show();
-
+		
 		// Makes the animation happen.  Will call "step" method repeatedly.
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> controller.step());
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MILLISECOND_DELAY));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
@@ -131,7 +131,7 @@ public class UI extends Application {
 		for(int i = 0; i< NUM_ROWS; i++){
 			for(int j =0; j < NUM_COLUMNS; j++){
 				Rectangle rect = new Rectangle(j*BLOCK_SIZE, i*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-//				rect.setFill(color[controller.getCellState(new Point(i,j))]);
+				rect.setFill(color[controller.getCellState(i,j)]);
 				mirrorCell[i][j] = rect;
 				drawing.getChildren().add(rect);
 			}	
@@ -139,7 +139,24 @@ public class UI extends Application {
 		return drawing;
 	}
 	
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
+	public void redraw(){
+		for(int i = 0; i< mirrorCell.length; i++){
+			for(int j =0; j < mirrorCell[i].length; j++){
+				mirrorCell[i][j].setFill(color[controller.getCellState(i,j)]);
+			}
+		}
+	}
+	
+	/*
+	 * Does a step in the search only if not paused.
+	 */
+	public void step(double elapsedTime){
+		if(!paused) {
+			controller.doOneStep(elapsedTime);
+		}
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
