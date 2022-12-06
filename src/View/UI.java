@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -68,6 +70,33 @@ public class UI extends Application {
 			controller.doOneStep(MILLISECOND_DELAY);
 		});
 		controls.getChildren().add(stepButton);
+		
+		Button saveButton = new Button("Save");
+		saveButton.setOnAction(value ->  {
+			controller.saveBoard();
+		});
+		controls.getChildren().add(saveButton);
+		
+		Button loadButton = new Button("Load");
+		loadButton.setOnAction(value ->  {
+			controller.loadBoard();
+		});
+		controls.getChildren().add(loadButton);
+		
+		Label rowLabel = new Label("Row:");
+		TextField rowField = new TextField ();
+		HBox rowBox = new HBox();
+		rowBox.getChildren().addAll(rowLabel, rowField);
+		rowBox.setSpacing(5);
+		controls.getChildren().add(rowBox);
+		
+		Label columnLabel = new Label("Columns:");
+		TextField columnField = new TextField ();
+		HBox columnBox = new HBox();
+		columnBox.getChildren().addAll(columnLabel, columnField);
+		columnBox.setSpacing(15);
+		controls.getChildren().add(columnBox);
+		
 		return controls;
 	}
 	
@@ -85,7 +114,7 @@ public class UI extends Application {
 	public void userBoardInput(Scanner userInput) {
 		System.out.println("Choose the number of rows: ");
 		NUM_ROWS = Integer.parseInt(userInput.nextLine());
-		System.out.println("Choose the number of rows: ");
+		System.out.println("Choose the number of columns: ");
 		NUM_COLUMNS = Integer.parseInt(userInput.nextLine());
 	}
 
