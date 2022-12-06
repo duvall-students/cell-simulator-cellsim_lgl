@@ -9,6 +9,7 @@ import controller.CellController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
@@ -29,10 +30,10 @@ public class UI extends Application {
 	private final int MILLISECOND_DELAY = 15;	// speed of animation
 	
 	private Scene myScene;						// the container for the GUI
-	private boolean paused = false;
+	private boolean paused = true;
 	private Button pauseButton;
-	private int NUM_ROWS;
-	private int NUM_COLUMNS;
+	private int NUM_ROWS = 100;					// Default Value 100
+	private int NUM_COLUMNS = 150;				// Default Value 100
 	private final int EXTRA_VERTICAL = 100; 	// GUI area allowance when making the scene width
 	private final int EXTRA_HORIZONTAL = 150; 	// GUI area allowance when making the scene width
 	private final int BLOCK_SIZE = 5;     		// size of each cell in pixels
@@ -41,6 +42,9 @@ public class UI extends Application {
 	Scanner userInputScanner = new Scanner(System.in);
 	
 	private Rectangle[][] mirrorCell;
+	
+	private TextField columnField = new TextField ();
+	private TextField rowField = new TextField ();
 	
 	private Color[] color  = new Color[] {
 			Color.BLACK,			// filled cell color
@@ -55,11 +59,13 @@ public class UI extends Application {
 
 		Button newSetUpButton = new Button("New Set-Up");
 		newSetUpButton.setOnAction(value ->  {
+			this.paused = false;
+			pressPause();
 			controller.newBoard();
 		});
 		controls.getChildren().add(newSetUpButton);
 
-		pauseButton = new Button("Pause");
+		pauseButton = new Button("Play");
 		pauseButton.setOnAction(value ->  {
 			pressPause();
 		});
@@ -83,27 +89,37 @@ public class UI extends Application {
 		});
 		controls.getChildren().add(loadButton);
 		
-		Label rowLabel = new Label("Row:");
-		TextField rowField = new TextField ();
-		HBox rowBox = new HBox();
-		rowBox.getChildren().addAll(rowLabel, rowField);
-		rowBox.setSpacing(5);
-		controls.getChildren().add(rowBox);
-		
-		Label columnLabel = new Label("Columns:");
-		TextField columnField = new TextField ();
-		HBox columnBox = new HBox();
-		columnBox.getChildren().addAll(columnLabel, columnField);
-		columnBox.setSpacing(15);
-		controls.getChildren().add(columnBox);
-		
 		return controls;
+	}
+	
+	private HBox setupTextFields() {
+		HBox fields = new HBox();
+		
+		fields.setAlignment(Pos.BASELINE_CENTER);
+		fields.setSpacing(10);
+		
+		
+		HBox rowBox = new HBox();
+		rowField.setPromptText("Enter number of rows (Default 100)");
+		rowField.setPrefColumnCount(20);
+		rowBox.getChildren().addAll(rowField);
+		rowBox.setSpacing(15);
+		fields.getChildren().add(rowBox);
+		
+		HBox columnBox = new HBox();
+		columnField.setPromptText("Enter number of columns (Default 150)");
+		columnField.setPrefColumnCount(20);
+		columnBox.getChildren().addAll(columnField);
+		columnBox.setSpacing(15);
+		fields.getChildren().add(columnBox);
+		
+		return fields;
 	}
 	
 	public void pressPause(){
 		this.paused = !this.paused;
 		if(this.paused){
-			pauseButton.setText("Resume");
+			pauseButton.setText("Play");
 		}
 		else{
 			pauseButton.setText("Pause");
@@ -111,6 +127,14 @@ public class UI extends Application {
 	}
 	
 	public void userBoardInput(Scanner userInput) {
+		// Commented out until functionality for reseting scene is fixed
+//		if(rowField.getText() != null && !rowField.getText().isEmpty()
+//				&& columnField.getText() != null && !columnField.getText().isEmpty()) {
+//			NUM_ROWS = Integer.parseInt(rowField.getText());
+//			NUM_COLUMNS = Integer.parseInt(columnField.getText());
+//		} else {
+//			System.out.println("do nothing");
+//		}
 		System.out.println("Choose the number of rows: ");
 		NUM_ROWS = Integer.parseInt(userInput.nextLine());
 		System.out.println("Choose the number of columns: ");
@@ -119,13 +143,14 @@ public class UI extends Application {
 
 	// Start of JavaFX Application
 	public void start(Stage stage) {
+		
 		userBoardInput(userInputScanner);
 		controller = new CellController(NUM_ROWS, NUM_COLUMNS, this);
 		
 		// Initializing the gui
 		myScene = setupScene();
 		stage.setScene(myScene);
-		stage.setTitle("Cell Sim");
+		stage.setTitle("Cell Simulator");
 		stage.show();
 		
 		// Makes the animation happen.  Will call "step" method repeatedly.
@@ -138,15 +163,17 @@ public class UI extends Application {
 	
 	// Create the scene - Controls and Cell areas
 	private Scene setupScene () {
+		
 		// Make three container
 		Group cellDrawing = setupGame();
 		HBox controls = setupControlButtons();
+		HBox fields = setupTextFields();
 
 		VBox root = new VBox();
 		root.setAlignment(Pos.TOP_CENTER);
 		root.setSpacing(10);
 		root.setPadding(new Insets(10, 10, 10, 10));
-		root.getChildren().addAll(cellDrawing,controls);
+		root.getChildren().addAll(cellDrawing,controls,fields);
 
 		Scene scene = new Scene(root, NUM_COLUMNS*BLOCK_SIZE+ EXTRA_HORIZONTAL, 
 				NUM_ROWS*BLOCK_SIZE + EXTRA_VERTICAL, Color.ANTIQUEWHITE);
