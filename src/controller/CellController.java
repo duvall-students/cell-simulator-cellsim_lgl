@@ -24,11 +24,15 @@ public class CellController {
 	private int numRows;
 	private int numCols;
 	
+	private static final int INACTIVE_CELL = 0;
+	private static final int ACTIVE_CELL = 1;
+	
 	public CellController(int rows, int cols, UI display) {
 		// Initializing logic state
 		numRows = rows;
 		numCols = cols;
-		board = new CellBoard(numRows, numCols);
+		
+		board = new CellBoard(rows, cols);
 		
 		this.display = display;
 	}
@@ -42,7 +46,7 @@ public class CellController {
 	}
 	
 	// Create new maze helper
-	public void newSimulation() {
+	public void newBoard() {
 		board = new CellBoard(numRows, numCols);
 		display.redraw();
 	}
@@ -64,8 +68,12 @@ public class CellController {
 		display.redraw();
 	}
 
-	public Cell getCellState(int row, int col) {
-		return board.getCell(row, col);
+	public int getCellState(int row, int col) {
+		if(board.getCell(row, col).hasBacteria()) {
+			return ACTIVE_CELL;
+		} else {
+			return INACTIVE_CELL;
+		}
 	}
 	
 
