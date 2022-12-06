@@ -11,15 +11,15 @@ public class CellController {
 	/* 
 	 * Logic of the program
 	 */
-	
-	// Controller
-	private Cell[][] savedBoard;
 
-	// The habitat to search
+	// Model
 	private CellBoard board;
 	
-	// UI instance
+	// View
 	private UI display;
+
+	// Controller
+	private Cell[][] savedBoard;
 	
 	private int numRows;
 	private int numCols;
@@ -37,21 +37,22 @@ public class CellController {
 		this.display = display;
 	}
 	
-	public void saveSimulation() {
-		savedBoard = board.copyBoard();
+	public void saveBoard() {
+		savedBoard = board.getBoard();
 	}
 	
-	public void loadSimulation() {
+	public void loadBoard() {
 		board.setBoard(savedBoard);
+		display.redraw();
 	}
 	
-	// Create new maze helper
+	// Creates a new board
 	public void newBoard() {
 		board = new CellBoard(numRows, numCols);
 		display.redraw();
 	}
 	
-	// Search method
+	// Initializes the cell board
 	public void startSimulation() {
 		board = new CellBoard(numRows, numCols);
 	}
@@ -68,6 +69,7 @@ public class CellController {
 		display.redraw();
 	}
 
+	// Returns a 1 (Active cell) or 0 (Inactive cell) for the view
 	public int getCellState(int row, int col) {
 		if(board.getCell(row, col).hasBacteria()) {
 			return ACTIVE_CELL;
