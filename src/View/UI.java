@@ -127,7 +127,7 @@ public class UI extends Application {
 	}
 	
 	public void userBoardInput(Scanner userInput) {
-		// Commented out until functionality for reseting scene is fixed
+		// Commented out until functionality for reseting scene is fixed for use
 //		if(rowField.getText() != null && !rowField.getText().isEmpty()
 //				&& columnField.getText() != null && !columnField.getText().isEmpty()) {
 //			NUM_ROWS = Integer.parseInt(rowField.getText());
