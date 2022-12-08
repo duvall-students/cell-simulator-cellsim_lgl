@@ -32,29 +32,27 @@ public class CellController {
 		numRows = rows;
 		numCols = cols;
 		
-		board = new CellBoard(rows, cols);
+		board = new CellBoard(numRows, numCols);
 		
 		this.display = display;
 	}
 	
 	public void saveBoard() {
-		savedBoard = board.getBoard();
+		savedBoard = board.copyBoard();
 	}
 	
 	public void loadBoard() {
-		board.setBoard(savedBoard);
-		display.redraw();
+		if(savedBoard != null) {
+			board.setBoard(savedBoard);
+			display.redraw();	
+			savedBoard = board.copyBoard();
+		}
 	}
 	
 	// Creates a new board
 	public void newBoard() {
 		board = new CellBoard(numRows, numCols);
 		display.redraw();
-	}
-	
-	// Initializes the cell board
-	public void startSimulation() {
-		board = new CellBoard(numRows, numCols);
 	}
 	
 	public void step() {
